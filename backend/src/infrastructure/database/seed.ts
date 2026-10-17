@@ -77,8 +77,8 @@ function resolveSeedDataPath(): string {
   const candidates = [
     path.resolve(process.cwd(), '../seed/data.json'),
     path.resolve(process.cwd(), 'seed/data.json'),
-    path.resolve(__dirname, '../../../seed/data.json'),
     path.resolve(__dirname, '../../../../seed/data.json'),
+    path.resolve(__dirname, '../../../../../seed/data.json'),
   ]
   const found = candidates.find((candidate) => existsSync(candidate))
   if (!found) {

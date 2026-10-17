@@ -6,9 +6,9 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/src/server.js",
-    "seed": "tsx src/database/seed.ts",
+    "seed": "tsx src/infrastructure/database/seed.ts",
     "test": "vitest run",
-    "migration:run": "node --import tsx ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts"
+    "migration:run": "node --import tsx ./node_modules/typeorm/cli.js migration:run -d src/infrastructure/database/data-source.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

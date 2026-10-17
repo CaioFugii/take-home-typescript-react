@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { app } from '../src/app'
-import { UserRole } from '../src/database/entities'
+import { UserRole } from '../src/infrastructure/database/entities'
 import { upsertUser } from './db'
 
 const adminEmail = 'admin@fastmeals.com'

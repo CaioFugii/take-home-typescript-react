@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { app } from './app'
 import { config } from './config'
-import { dataSource } from './database/data-source'
+import { dataSource } from './infrastructure/database/data-source'
 import { logger } from './utils/logger'
 
 async function main(): Promise<void> {

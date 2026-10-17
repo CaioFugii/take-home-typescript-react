@@ -1,10 +1,9 @@
 import { createHash, randomUUID } from 'node:crypto'
 import bcrypt from 'bcrypt'
 import jwt, { type JwtPayload, type SignOptions } from 'jsonwebtoken'
-import { IsNull } from 'typeorm'
 import { config } from '../config'
-import { dataSource } from '../database/data-source'
-import { RefreshToken, User } from '../database/entities'
+import { repositories } from '../context'
+import type { UserRecord } from '../domain/session-repository'
 import type { AuthenticatedUser } from '../types/auth'
 import { AppError } from '../utils/errors'
 
@@ -95,27 +94,24 @@ function isRefreshClaims(value: unknown): value is RefreshClaims {
   return payload.type === 'refresh' && typeof payload.sub === 'string'
 }
 
-function toAuthenticatedUser(user: User): AuthenticatedUser {
+function toAuthenticatedUser(user: { id: string; email: string; role: UserRecord['role'] }): AuthenticatedUser {
   return { id: user.id, email: user.email, role: user.role }
 }
 
 async function issueTokenPair(user: AuthenticatedUser): Promise<IssuedTokens> {
   const accessToken = signAccessToken(user)
   const refresh = signRefreshToken(user.id)
-  const tokens = dataSource.getRepository(RefreshToken)
-  await tokens.save(
-    tokens.create({
-      user: { id: user.id } as User,
-      tokenHash: hashToken(refresh.token),
-      expiresAt: refresh.expiresAt,
-    }),
-  )
+  await repositories().refreshTokens.issue({
+    userId: user.id,
+    tokenHash: hashToken(refresh.token),
+    expiresAt: refresh.expiresAt,
+  })
   return { accessToken, refreshToken: refresh.token, user }
 }
 
 export async function login(email: string, password: string): Promise<IssuedTokens> {
-  const user = await dataSource.getRepository(User).findOne({ where: { email } })
-  const passwordHash = user?.password ?? (await getDummyPasswordHash())
+  const user = await repositories().users.findByEmail(email)
+  const passwordHash = user?.passwordHash ?? (await getDummyPasswordHash())
   const passwordMatches = await bcrypt.compare(password, passwordHash)
 
   if (!user || !passwordMatches) {
@@ -140,10 +136,7 @@ export async function refreshSession(refreshToken: string): Promise<IssuedTokens
     throw new AppError(401, 'INVALID_REFRESH_TOKEN', 'Refresh token invalido ou expirado')
   }
 
-  const stored = await dataSource.getRepository(RefreshToken).findOne({
-    where: { tokenHash: hashToken(refreshToken) },
-    relations: { user: true },
-  })
+  const stored = await repositories().refreshTokens.findByHash(hashToken(refreshToken))
 
   if (!stored || stored.revokedAt || stored.expiresAt.getTime() <= Date.now() || stored.user.id !== userId) {
     throw new AppError(401, 'INVALID_REFRESH_TOKEN', 'Refresh token invalido ou expirado')
@@ -152,24 +145,14 @@ export async function refreshSession(refreshToken: string): Promise<IssuedTokens
   const user = toAuthenticatedUser(stored.user)
   const accessToken = signAccessToken(user)
   const nextRefresh = signRefreshToken(user.id)
-
-  await dataSource.transaction(async (manager) => {
-    const revoked = await manager.update(
-      RefreshToken,
-      { id: stored.id, revokedAt: IsNull() },
-      { revokedAt: new Date() },
-    )
-    if (revoked.affected !== 1) {
-      throw new AppError(401, 'INVALID_REFRESH_TOKEN', 'Refresh token invalido ou expirado')
-    }
-    await manager.save(
-      manager.create(RefreshToken, {
-        user: stored.user,
-        tokenHash: hashToken(nextRefresh.token),
-        expiresAt: nextRefresh.expiresAt,
-      }),
-    )
+  const rotated = await repositories().refreshTokens.rotate(stored.id, {
+    userId: user.id,
+    tokenHash: hashToken(nextRefresh.token),
+    expiresAt: nextRefresh.expiresAt,
   })
+  if (!rotated) {
+    throw new AppError(401, 'INVALID_REFRESH_TOKEN', 'Refresh token invalido ou expirado')
+  }
 
   return { accessToken, refreshToken: nextRefresh.token, user }
 }
@@ -178,10 +161,7 @@ export async function revokeRefreshToken(refreshToken: string | undefined): Prom
   if (!refreshToken) {
     return
   }
-  await dataSource.getRepository(RefreshToken).update(
-    { tokenHash: hashToken(refreshToken), revokedAt: IsNull() },
-    { revokedAt: new Date() },
-  )
+  await repositories().refreshTokens.revokeByHash(hashToken(refreshToken))
 }
 
 export function verifyAccessToken(token: string): AuthenticatedUser {

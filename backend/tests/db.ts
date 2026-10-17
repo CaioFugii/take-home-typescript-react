@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
-import { dataSource } from '../src/database/data-source'
-import { User, type UserRole } from '../src/database/entities'
+import { dataSource } from '../src/infrastructure/database/data-source'
+import { User, type UserRole } from '../src/infrastructure/database/entities'
 
 export async function upsertUser(email: string, password: string, role: UserRole): Promise<void> {
   const hash = await bcrypt.hash(password, 12)

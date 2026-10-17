@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '../src/app'
-import { dataSource } from '../src/database/data-source'
+import { dataSource } from '../src/infrastructure/database/data-source'
 import {
   DeliveryPerson,
   Order,
@@ -11,7 +11,7 @@ import {
   Product,
   UserRole,
   VehicleType,
-} from '../src/database/entities'
+} from '../src/infrastructure/database/entities'
 import { upsertUser } from './db'
 
 let adminToken = ''

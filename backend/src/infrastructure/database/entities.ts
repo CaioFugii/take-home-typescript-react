@@ -9,42 +9,14 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { OrderStatus, ProductCategory, UserRole, VehicleType } from '../../domain/catalog'
 import { decimalTransformer } from './columns'
+
+export { OrderStatus, ProductCategory, UserRole, VehicleType }
 
 const money = decimalTransformer(2)
 const latitude = decimalTransformer(8)
 const longitude = decimalTransformer(8)
-
-export const UserRole = {
-  admin: 'admin',
-  viewer: 'viewer',
-} as const
-export type UserRole = (typeof UserRole)[keyof typeof UserRole]
-
-export const ProductCategory = {
-  meal: 'meal',
-  drink: 'drink',
-  dessert: 'dessert',
-  side: 'side',
-} as const
-export type ProductCategory = (typeof ProductCategory)[keyof typeof ProductCategory]
-
-export const OrderStatus = {
-  pending: 'pending',
-  preparing: 'preparing',
-  ready: 'ready',
-  delivering: 'delivering',
-  delivered: 'delivered',
-  cancelled: 'cancelled',
-} as const
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
-
-export const VehicleType = {
-  bicycle: 'bicycle',
-  motorcycle: 'motorcycle',
-  car: 'car',
-} as const
-export type VehicleType = (typeof VehicleType)[keyof typeof VehicleType]
 
 function values<T extends Record<string, string>>(record: T): Array<T[keyof T]> {
   return Object.values(record) as Array<T[keyof T]>

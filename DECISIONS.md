@@ -8,9 +8,17 @@ A API é pequena e o contrato já está descrito em rotas REST. Express deixa o 
 
 ### TypeORM + PostgreSQL
 
-O critério eliminatório exige PostgreSQL, mesmo o README citando outros bancos. O acesso ao banco usa TypeORM no modo Data Mapper: as entidades são classes em `backend/src/database/entities.ts` e os serviços falam com `Repository` e `EntityManager`. A entidade não herda `BaseEntity`, então a regra de negócio não fica misturada com `save()` dentro do modelo.
+O critério eliminatório exige PostgreSQL, mesmo o README citando outros bancos. O acesso ao banco usa TypeORM no modo Data Mapper. As entidades ficam em `backend/src/infrastructure/database/` e não herdam `BaseEntity`.
 
 A migration `Init1760600000000` é o schema reproduzível. Ela cria os enums, as tabelas, as chaves, os índices do `docs/database-schema.md` (inclusive o composto `status + created_at`) e os checks que decorador não expressa: `price > 0`, `preparation_time` entre 1 e 120, quantidades e totais positivos, latitude e longitude no intervalo geográfico. Os `id` continuam `UUID`, com `gen_random_uuid()` como default no banco. `synchronize` fica desligado: o TypeORM não altera tabela fora da migration.
+
+### Domínio e infraestrutura
+
+A camada de domínio e a camada de infraestrutura ficam separadas para a manutenção no futuro e para trocar o provedor ou o banco sem reescrever as regras. Pedido, produto, entregador e status moram em `backend/src/domain/`. TypeORM, SQL, migration e seed moram em `backend/src/infrastructure/database/`.
+
+O domínio publica interfaces de repositório. Os serviços dependem dessas interfaces. O `composition.ts` é o único ponto que liga cada interface à classe TypeORM. Uma troca de banco implementa as mesmas interfaces e altera essa ligação. As regras (`assertStatusTransition`, preço do pedido, produto em uso) permanecem.
+
+O erro de regra é um `DomainError`, sem status HTTP. O `error-handler` traduz o código: `ORDER_NOT_FOUND` vira 404 e `INVALID_STATUS_TRANSITION` vira 422. `AppError` fica na borda HTTP, para autenticação e validação.
 
 ### Zod
 
