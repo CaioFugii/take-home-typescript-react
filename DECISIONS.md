@@ -77,6 +77,8 @@ Cada mudança de status grava uma linha em `order_status_events`, com o status a
 
 `ready` só vai para `delivering` com um entregador atribuído. A listagem `GET /api/delivery-persons` aceita `isActive` e `available`. Excluir quem está em uma entrega responde `409 DELIVERY_PERSON_IN_USE`. Quem só tem pedidos já encerrados pode ser removido; a chave estrangeira então zera o entregador nesses pedidos.
 
+`GET /api/products` e `GET /api/orders` paginam no banco (`LIMIT`/`OFFSET`, no máximo 100 itens por página). Os índices de `created_at`, `status + created_at`, categoria, nome e disponibilidade cobrem os filtros da tela. Com 10.000 produtos e 10.000 pedidos, a primeira página, a última e a página filtrada respondem em menos de 200 ms. O teste `listings-performance` repete essa carga.
+
 ## Atribuição
 
 `POST /api/orders/optimize-assignment` lê os pedidos `ready` e os entregadores ativos, com latitude e longitude, que não estão em outro pedido `delivering`. A distância é Haversine com raio de 6371 km. O emparelhamento é o algoritmo húngaro (Kuhn–Munkres), O(n³) na matriz quadrada.
