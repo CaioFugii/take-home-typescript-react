@@ -1,5 +1,5 @@
 import './types/express'
-import './composition'
+import { registerRepositories } from './composition'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express from 'express'
@@ -14,6 +14,8 @@ import { orderRouter } from './routes/order.routes'
 import { productRouter } from './routes/product.routes'
 import { reportRouter } from './routes/report.routes'
 import { logger } from './utils/logger'
+
+registerRepositories()
 
 export const app = express()
 

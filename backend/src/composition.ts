@@ -6,11 +6,13 @@ import { TypeOrmProductRepository } from './infrastructure/database/product.repo
 import { TypeOrmReportRepository } from './infrastructure/database/report.repository'
 import { TypeOrmRefreshTokenRepository, TypeOrmUserRepository } from './infrastructure/database/session.repository'
 
-bindRepositories({
-  products: new TypeOrmProductRepository(dataSource),
-  orders: new TypeOrmOrderRepository(dataSource),
-  deliveryPersons: new TypeOrmDeliveryPersonRepository(dataSource),
-  users: new TypeOrmUserRepository(dataSource),
-  refreshTokens: new TypeOrmRefreshTokenRepository(dataSource),
-  reports: new TypeOrmReportRepository(dataSource),
-})
+export function registerRepositories(): void {
+  bindRepositories({
+    products: new TypeOrmProductRepository(dataSource),
+    orders: new TypeOrmOrderRepository(dataSource),
+    deliveryPersons: new TypeOrmDeliveryPersonRepository(dataSource),
+    users: new TypeOrmUserRepository(dataSource),
+    refreshTokens: new TypeOrmRefreshTokenRepository(dataSource),
+    reports: new TypeOrmReportRepository(dataSource),
+  })
+}
