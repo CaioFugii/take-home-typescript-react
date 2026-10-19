@@ -1,4 +1,4 @@
-import type { VehicleType } from './catalog'
+import type { VehicleType } from '../catalog'
 
 export type DeliveryPersonRecord = {
   id: string

@@ -1,4 +1,4 @@
-import type { ProductCategory } from './catalog'
+import type { ProductCategory } from '../catalog'
 
 export type ProductRecord = {
   id: string

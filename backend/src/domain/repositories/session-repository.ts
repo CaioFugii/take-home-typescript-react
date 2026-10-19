@@ -1,4 +1,4 @@
-import type { UserRole } from './catalog'
+import type { UserRole } from '../catalog'
 
 export type UserRecord = {
   id: string

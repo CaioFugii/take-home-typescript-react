@@ -5,7 +5,7 @@ import {
   deliveryPersonIdSchema,
   listDeliveryPersonsQuerySchema,
   updateDeliveryPersonSchema,
-} from '../routes/delivery-person.schema'
+} from '../routes/schemas/delivery-person.schema'
 import {
   createDeliveryPerson,
   deleteDeliveryPerson,

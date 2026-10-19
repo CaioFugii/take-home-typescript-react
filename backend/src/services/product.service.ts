@@ -1,7 +1,7 @@
-import type { CreateProductInput, ListProductsQuery, UpdateProductInput } from '../routes/product.schema'
+import type { CreateProductInput, ListProductsQuery, UpdateProductInput } from '../routes/schemas/product.schema'
 import type { ProductCategory } from '../domain/catalog'
 import { DomainError } from '../domain/errors'
-import type { ProductRecord } from '../domain/product-repository'
+import type { ProductRecord } from '../domain/repositories/product-repository'
 import { assertProductCanBeRemoved } from '../domain/rules'
 import { repositories } from '../context'
 

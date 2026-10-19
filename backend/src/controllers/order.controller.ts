@@ -6,7 +6,7 @@ import {
   listOrdersQuerySchema,
   orderIdSchema,
   updateStatusSchema,
-} from '../routes/order.schema'
+} from '../routes/schemas/order.schema'
 import { suggestOptimizedAssignment } from '../services/assignment.service'
 import { assignDeliveryPerson, changeOrderStatus, createOrder, getOrder, listOrders } from '../services/order.service'
 

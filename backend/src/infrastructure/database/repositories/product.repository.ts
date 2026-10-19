@@ -1,13 +1,13 @@
 import type { DataSource } from 'typeorm'
-import { OrderStatus } from '../../domain/catalog'
+import { OrderStatus } from '../../../domain/catalog'
 import type {
   NewProduct,
   ProductListQuery,
   ProductPatch,
   ProductRecord,
   ProductRepository,
-} from '../../domain/product-repository'
-import { OrderItem, Product } from './entities'
+} from '../../../domain/repositories/product-repository'
+import { OrderItem, Product } from '../entities'
 
 function escapeLike(value: string): string {
   return value.replace(/[\\%_]/g, (char) => `\\${char}`)

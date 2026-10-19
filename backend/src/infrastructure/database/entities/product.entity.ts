@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { ProductCategory } from '../../../domain/catalog.js'
-import { enumValues, money } from './column-types.js'
+import { enumValues, money } from '../utils/column-types.js'
 import type { OrderItem } from './order-item.entity.js'
 
 @Entity('products')

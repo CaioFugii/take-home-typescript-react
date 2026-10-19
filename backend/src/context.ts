@@ -1,8 +1,8 @@
-import type { DeliveryPersonRepository } from './domain/delivery-person-repository'
-import type { OrderRepository } from './domain/order-repository'
-import type { ProductRepository } from './domain/product-repository'
-import type { RefreshTokenRepository, UserRepository } from './domain/session-repository'
-import type { ReportRepository } from './domain/report-repository'
+import type { DeliveryPersonRepository } from './domain/repositories/delivery-person-repository'
+import type { OrderRepository } from './domain/repositories/order-repository'
+import type { ProductRepository } from './domain/repositories/product-repository'
+import type { RefreshTokenRepository, UserRepository } from './domain/repositories/session-repository'
+import type { ReportRepository } from './domain/repositories/report-repository'
 
 export type Repositories = {
   products: ProductRepository

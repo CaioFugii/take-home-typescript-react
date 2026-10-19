@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { OrderStatus } from '../../../domain/catalog.js'
-import { enumValues } from './column-types.js'
+import { enumValues } from '../utils/column-types.js'
 import type { Order } from './order.entity.js'
 
 @Entity('order_status_events')

@@ -6,8 +6,8 @@ import type {
   RefreshTokenRepository,
   UserRecord,
   UserRepository,
-} from '../../domain/session-repository'
-import { RefreshToken, User } from './entities'
+} from '../../../domain/repositories/session-repository'
+import { RefreshToken, User } from '../entities'
 
 function toUser(user: User): UserRecord {
   return {

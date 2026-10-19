@@ -3,7 +3,7 @@ import { loginController, logoutController, meController, refreshController } fr
 import { authenticate } from '../middlewares/authenticate'
 import { validateBody } from '../middlewares/validate'
 import { asyncHandler } from '../utils/async-handler'
-import { loginSchema, refreshSchema } from './auth.schema'
+import { loginSchema, refreshSchema } from './schemas/auth.schema'
 
 export const authRouter = Router()
 

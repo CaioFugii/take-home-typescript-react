@@ -2,10 +2,10 @@ import type {
   CreateDeliveryPersonInput,
   ListDeliveryPersonsQuery,
   UpdateDeliveryPersonInput,
-} from '../routes/delivery-person.schema'
+} from '../routes/schemas/delivery-person.schema'
 import type { VehicleType } from '../domain/catalog'
 import { DomainError } from '../domain/errors'
-import type { DeliveryPersonRecord } from '../domain/delivery-person-repository'
+import type { DeliveryPersonRecord } from '../domain/repositories/delivery-person-repository'
 import { assertCourierCanBeRemoved } from '../domain/rules'
 import { repositories } from '../context'
 import { AppError } from '../utils/errors'

@@ -1,5 +1,5 @@
 import type { DataSource } from 'typeorm'
-import type { OrderStatus, VehicleType } from '../../domain/catalog'
+import type { OrderStatus, VehicleType } from '../../../domain/catalog'
 import type {
   DatePeriod,
   DeliveredOrderAmount,
@@ -7,8 +7,8 @@ import type {
   ReportRepository,
   StatusCount,
   TopProductRow,
-} from '../../domain/report-repository'
-import { Order, OrderStatus as Status } from './entities'
+} from '../../../domain/repositories/report-repository'
+import { Order, OrderStatus as Status } from '../entities'
 
 function asNumber(value: unknown): number {
   if (typeof value === 'number') {

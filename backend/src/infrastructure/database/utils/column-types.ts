@@ -1,4 +1,4 @@
-import { decimalTransformer } from '../columns.js'
+import { decimalTransformer } from './columns.js'
 
 export const money = decimalTransformer(2)
 export const latitude = decimalTransformer(8)

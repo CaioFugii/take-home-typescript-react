@@ -5,7 +5,7 @@ import {
   listProductsQuerySchema,
   productIdSchema,
   updateProductSchema,
-} from '../routes/product.schema'
+} from '../routes/schemas/product.schema'
 import { createProduct, deleteProduct, getProduct, listProducts, updateProduct } from '../services/product.service'
 
 export async function listProductsController(req: Request, res: Response): Promise<void> {

@@ -1,4 +1,4 @@
-import type { DeliveryTimeQuery, RevenueQuery, TopProductsQuery } from '../routes/report.schema'
+import type { DeliveryTimeQuery, RevenueQuery, TopProductsQuery } from '../routes/schemas/report.schema'
 import { OrderStatus, type VehicleType } from '../domain/catalog'
 import { repositories } from '../context'
 import { utcNextDay, utcStart } from '../utils/dates'

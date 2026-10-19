@@ -1,10 +1,10 @@
 import { bindRepositories } from './context'
 import { dataSource } from './infrastructure/database/data-source'
-import { TypeOrmDeliveryPersonRepository } from './infrastructure/database/delivery-person.repository'
-import { TypeOrmOrderRepository } from './infrastructure/database/order.repository'
-import { TypeOrmProductRepository } from './infrastructure/database/product.repository'
-import { TypeOrmReportRepository } from './infrastructure/database/report.repository'
-import { TypeOrmRefreshTokenRepository, TypeOrmUserRepository } from './infrastructure/database/session.repository'
+import { TypeOrmDeliveryPersonRepository } from './infrastructure/database/repositories/delivery-person.repository'
+import { TypeOrmOrderRepository } from './infrastructure/database/repositories/order.repository'
+import { TypeOrmProductRepository } from './infrastructure/database/repositories/product.repository'
+import { TypeOrmReportRepository } from './infrastructure/database/repositories/report.repository'
+import { TypeOrmRefreshTokenRepository, TypeOrmUserRepository } from './infrastructure/database/repositories/session.repository'
 
 export function registerRepositories(): void {
   bindRepositories({

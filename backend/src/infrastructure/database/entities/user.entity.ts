@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { UserRole } from '../../../domain/catalog.js'
-import { enumValues } from './column-types.js'
+import { enumValues } from '../utils/column-types.js'
 import type { RefreshToken } from './refresh-token.entity.js'
 
 @Entity('users')

@@ -2,7 +2,7 @@ import type { Request, Response } from 'express'
 import { login, refreshSession, revokeRefreshToken } from '../services/auth.service'
 import { REFRESH_COOKIE, refreshCookieOptions, refreshCookieSetOptions } from '../utils/cookies'
 import { AppError } from '../utils/errors'
-import { loginSchema, refreshSchema } from '../routes/auth.schema'
+import { loginSchema, refreshSchema } from '../routes/schemas/auth.schema'
 
 function readCookie(req: Request): string | undefined {
   const value = req.cookies?.[REFRESH_COOKIE]

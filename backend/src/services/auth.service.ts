@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt, { type JwtPayload, type SignOptions } from 'jsonwebtoken'
 import { config } from '../config'
 import { repositories } from '../context'
-import type { UserRecord } from '../domain/session-repository'
+import type { UserRecord } from '../domain/repositories/session-repository'
 import type { AuthenticatedUser } from '../types/auth'
 import { AppError } from '../utils/errors'
 

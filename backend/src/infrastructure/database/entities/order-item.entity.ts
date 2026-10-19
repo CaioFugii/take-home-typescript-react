@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { money } from './column-types.js'
+import { money } from '../utils/column-types.js'
 import type { Order } from './order.entity.js'
 import type { Product } from './product.entity.js'
 

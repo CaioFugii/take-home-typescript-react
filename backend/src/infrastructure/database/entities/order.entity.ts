@@ -13,7 +13,7 @@ import { OrderStatus } from '../../../domain/catalog.js'
 import type { DeliveryPerson } from './delivery-person.entity.js'
 import type { OrderItem } from './order-item.entity.js'
 import type { OrderStatusEvent } from './order-status-event.entity.js'
-import { enumValues, latitude, longitude, money } from './column-types.js'
+import { enumValues, latitude, longitude, money } from '../utils/column-types.js'
 
 @Entity('orders')
 @Index('idx_orders_status', ['status'])

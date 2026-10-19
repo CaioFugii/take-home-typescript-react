@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { VehicleType } from '../../../domain/catalog.js'
 import type { Order } from './order.entity.js'
-import { enumValues, latitude, longitude } from './column-types.js'
+import { enumValues, latitude, longitude } from '../utils/column-types.js'
 
 @Entity('delivery_persons')
 @Index('idx_delivery_persons_is_active', ['isActive'])

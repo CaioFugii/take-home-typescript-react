@@ -1,4 +1,4 @@
-import type { OrderStatus, VehicleType } from './catalog'
+import type { OrderStatus, VehicleType } from '../catalog'
 
 export type DeliveredOrderAmount = {
   totalAmount: number

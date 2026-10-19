@@ -1,5 +1,5 @@
 import type { DataSource } from 'typeorm'
-import { OrderStatus } from '../../domain/catalog'
+import { OrderStatus } from '../../../domain/catalog'
 import type {
   AvailableCourier,
   DeliveryPersonListQuery,
@@ -7,8 +7,8 @@ import type {
   DeliveryPersonRecord,
   DeliveryPersonRepository,
   NewDeliveryPerson,
-} from '../../domain/delivery-person-repository'
-import { DeliveryPerson } from './entities'
+} from '../../../domain/repositories/delivery-person-repository'
+import { DeliveryPerson } from '../entities'
 
 function toRecord(person: DeliveryPerson): DeliveryPersonRecord {
   return {

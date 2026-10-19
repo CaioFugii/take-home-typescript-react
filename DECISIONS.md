@@ -20,6 +20,14 @@ O domínio publica interfaces de repositório. Os serviços dependem dessas inte
 
 O erro de regra é um `DomainError`, sem status HTTP. O `error-handler` traduz o código: `ORDER_NOT_FOUND` vira 404 e `INVALID_STATUS_TRANSITION` vira 422. `AppError` fica na borda HTTP, para autenticação e validação.
 
+Dentro de `backend/src/infrastructure/database/`, três pastas existem só para organizar o código. O comportamento da API não muda.
+
+- `entities/` tem um arquivo por tabela.
+- `repositories/` tem a implementação TypeORM de cada interface do domínio.
+- `utils/` tem as transformações de valor, como `decimalTransformer`, que converte decimal do Postgres em número.
+
+A mesma organização vale para o domínio e para as rotas, também sem mudar o comportamento. `domain/repositories/` guarda só os contratos de repositório. Regras, status e catálogo continuam na raiz de `domain/`. `routes/schemas/` guarda a validação Zod. Os arquivos de rota continuam só com o caminho HTTP e o controller.
+
 ### Zod
 
 Validação de ambiente e de body num formato único. O erro vira `400 VALIDATION_ERROR` com `details[].field` e `details[].message`.

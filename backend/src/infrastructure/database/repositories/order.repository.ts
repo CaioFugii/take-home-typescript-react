@@ -1,10 +1,10 @@
 import { And, type DataSource, type FindOptionsWhere, LessThan, MoreThanOrEqual } from 'typeorm'
-import { OrderStatus } from '../../domain/catalog'
-import { DomainError } from '../../domain/errors'
-import type { NewOrder, OrderListQuery, OrderRecord, OrderRepository, ReadyOrder } from '../../domain/order-repository'
-import { assertStatusTransition } from '../../domain/order-status'
-import { assertCourierCanDeliver, assertOrderCanReceiveCourier } from '../../domain/rules'
-import { DeliveryPerson, Order, OrderItem, OrderStatusEvent, Product } from './entities'
+import { OrderStatus } from '../../../domain/catalog'
+import { DomainError } from '../../../domain/errors'
+import type { NewOrder, OrderListQuery, OrderRecord, OrderRepository, ReadyOrder } from '../../../domain/repositories/order-repository'
+import { assertStatusTransition } from '../../../domain/order-status'
+import { assertCourierCanDeliver, assertOrderCanReceiveCourier } from '../../../domain/rules'
+import { DeliveryPerson, Order, OrderItem, OrderStatusEvent, Product } from '../entities'
 
 const orderRelations = { items: { product: true }, deliveryPerson: true } as const
 

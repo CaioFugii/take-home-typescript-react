@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 import { parseSchema } from '../middlewares/validate'
-import { deliveryTimeQuerySchema, revenueQuerySchema, topProductsQuerySchema } from '../routes/report.schema'
+import { deliveryTimeQuerySchema, revenueQuerySchema, topProductsQuerySchema } from '../routes/schemas/report.schema'
 import { getAverageDeliveryTime, getOrdersByStatus, getRevenue, getTopProducts } from '../services/report.service'
 
 export async function revenueController(req: Request, res: Response): Promise<void> {
